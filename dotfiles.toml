@@ -1,0 +1,36 @@
+# Macros
+[macros.install__arch]
+    prefix = ["sudo", "pacman", "-S"]
+
+[tasks.install-fish]
+    rejects = [["which", "fish"]]
+    cmds = [["@install", "fish"]]
+
+[tasks.fish]
+    deps = ["install-fish"]
+    envs = [
+        ["FISH_PATH", "${HM_DEST}/.config/fish"]
+    ]
+    links = [
+        ["${FISH_PATH}/completions", "fish/completions"],
+        ["${FISH_PATH}/functions", "fish/functions"],
+        ["${FISH_PATH}/conf.d", "fish/conf.d"],
+        ["${FISH_PATH}/config.fish", "fish/config.fish"],
+        ["${FISH_PATH}/fishfile", "fish/fishfile"],
+    ]
+    cmdspost = [
+        ["curl", "-Lo", "${FISH_PATH}/functions/fisher.fish", "--create-dir", "https://git.io/fisher"],
+        ["fish", "-c","fisher", "up"]
+    ]
+
+[tasks.mpv]
+    links = [
+        ["${HM_DEST}/.config/mpv/input.conf", "mpv/input.conf"],
+        ["${HM_DEST}/.config/mpv/mpv.conf", "mpv/mpv.conf"]
+    ]
+
+[tasks.default]
+    deps = ["fish", "mpv"]
+
+[tasks.full-kde]
+    deps = ["default"]
