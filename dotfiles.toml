@@ -9,18 +9,15 @@
 [tasks.fish]
     deps = ["install-fish"]
     envs = [
-        ["FISH_PATH", "${HM_DEST}/.config/fish"]
+        ["FISH_PATH", "${HM_DEST}/.config/fish"],
+        ["FISHER_PATH", "${HM_DEST}/.local/share/fisherman"]
     ]
     links = [
         ["${FISH_PATH}/completions", "fish/completions"],
         ["${FISH_PATH}/functions", "fish/functions"],
         ["${FISH_PATH}/conf.d", "fish/conf.d"],
         ["${FISH_PATH}/config.fish", "fish/config.fish"],
-        ["${FISH_PATH}/fishfile", "fish/fishfile"],
-    ]
-    cmdspost = [
-        ["curl", "-Lo", "${FISH_PATH}/functions/fisher.fish", "--create-dir", "https://git.io/fisher"],
-        ["fish", "-c","fisher", "up"]
+        ["${FISHER_PATH}/fishfile", "fish/fishfile"],
     ]
 
 [tasks.mpv]

@@ -15,7 +15,7 @@ end
 set grc_wrap_commands cat cvs df diff dig gcc g++ ifconfig make mount mtr netstat ping ps tail traceroute wdiff
 
 # Anaconda
-if which conda 1>/dev/null
+if which conda ^/dev/null 1>/dev/null
     set -l file (conda info --root)/etc/fish/conf.d/conda.fish
     test -e $file; and builtin source $file
 end
