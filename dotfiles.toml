@@ -23,7 +23,15 @@
 [tasks.mpv]
     links = [
         ["${HM_DEST}/.config/mpv/input.conf", "mpv/input.conf"],
-        ["${HM_DEST}/.config/mpv/mpv.conf", "mpv/mpv.conf"]
+        ["${HM_DEST}/.config/mpv/mpv.conf", "mpv/mpv.conf"],
+        ["${HM_DEST}/.config/mpv/scripts", "mpv/scripts"]
+    ]
+
+[tasks.kak]
+    links = [
+        ["${HM_DEST}/.config/kak/kakrc", "kak/kakrc"],
+        ["${HM_DEST}/.config/kak/autoload", "kak/autoload"],
+        ["${HM_DEST}/.config/kak/bin", "kak/bin"]
     ]
 
 [tasks.default]
