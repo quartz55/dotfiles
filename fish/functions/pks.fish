@@ -1,3 +1,3 @@
-function pks -w pikaur
+function pks
 	pikaur -Ss $argv
 end

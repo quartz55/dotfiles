@@ -1,21 +1,34 @@
-# Merge keybindings
-set -l scripts_folder (dirname (status -f))/scripts
-
-functions -q fish_user_key_bindings
-functions -q fish_user_key_bindings
-  and not functions -q __original_fish_user_key_bindings
-  and functions -c fish_user_key_bindings __original_fish_user_key_bindings
-  
-function fish_user_key_bindings
-    functions -q __original_fish_user_key_bindings
-      and __original_fish_user_key_bindings
-
-    bind \cf forward-char
-    bind \ct fzy_select_directory
-    bind \ez fzy_z
+# Set environment variables
+if status is-login
+    if functions -q bass; and not set -q FISH_LOGIN
+        bass 'source /etc/profile'
+    else
+        echo (set_color yellow)"WARNING: Make sure 'bass' is available for '/etc/profile' compatibility!"(set_color normal)
+    end
+    set -l login_counter (set -q FISH_LOGIN[1]; and echo $FISH_LOGIN[1]; or echo 0)
+    set -gx FISH_LOGIN (math "1 + $login_counter") $FISH_LOGIN
 end
 
-set grc_wrap_commands cat cvs df diff dig gcc g++ ifconfig make mount mtr netstat ping ps tail traceroute wdiff
+set -gx EDITOR kak
+set -gx VISUAL kak
+###########################
+
+# Merge keybindings
+if status is-interactive
+    functions -q fish_user_key_bindings
+    functions -q fish_user_key_bindings
+    and not functions -q __original_fish_user_key_bindings
+    and functions -c fish_user_key_bindings __original_fish_user_key_bindings
+    function fish_user_key_bindings
+        functions -q __original_fish_user_key_bindings
+        and __original_fish_user_key_bindings
+        bind \cf forward-char
+        bind \ct fzy_select_directory
+        bind \ez fzy_z
+    end
+end
+
+set -l scripts_folder (dirname (status -f))/scripts
 
 # Anaconda
 function __get_conda_root
@@ -29,12 +42,15 @@ end
 
 # If conda is in path source fish integration
 if which conda ^/dev/null 1>/dev/null
-    # set -l conda_root (__get_conda_root)
-    # if test -n $conda_root
-    #     set -l file $conda_root/etc/fish/conf.d/conda.fish
-    #     test -e $file; and builtin source $file
-    # end
-    builtin source $scripts_folder/conda.fish
+    set -l conda_root (__get_conda_root)
+    if test -n $conda_root
+        set -l file $conda_root/etc/fish/conf.d/conda.fish
+        test -e $file; and builtin source $file
+    end
 end
 
-status is-interactive; and byobu-status; and byobu-launch
+# hub
+if which hub >/dev/null
+    eval (hub alias -s)
+    complete -c hub -w git
+end

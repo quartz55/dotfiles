@@ -1,3 +1,3 @@
-function pki -w pikaur
+function pki -w 'pikaur -S'
 	pikaur -S $argv
 end

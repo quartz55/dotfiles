@@ -1,7 +1,11 @@
-# Macros
+# Package managers
 [macros.install__arch]
     prefix = ["sudo", "pacman", "-S"]
 
+[macros.install__ubuntu]
+    prefix = ["sudo", "apt", "install"]
+
+# fish shell
 [tasks.install-fish]
     rejects = [["which", "fish"]]
     cmds = [["@install", "fish"]]
@@ -15,11 +19,13 @@
     links = [
         ["${FISH_PATH}/completions", "fish/completions"],
         ["${FISH_PATH}/functions", "fish/functions"],
+        ["${FISH_PATH}/scripts", "fish/scripts"],
         ["${FISH_PATH}/conf.d", "fish/conf.d"],
         ["${FISH_PATH}/config.fish", "fish/config.fish"],
         ["${FISHER_PATH}/fishfile", "fish/fishfile"],
     ]
 
+# MPV
 [tasks.mpv]
     links = [
         ["${HM_DEST}/.config/mpv/input.conf", "mpv/input.conf"],
@@ -27,6 +33,7 @@
         ["${HM_DEST}/.config/mpv/scripts", "mpv/scripts"]
     ]
 
+# Kakoune
 [tasks.kak]
     links = [
         ["${HM_DEST}/.config/kak/kakrc", "kak/kakrc"],
@@ -34,8 +41,11 @@
         ["${HM_DEST}/.config/kak/bin", "kak/bin"]
     ]
 
-[tasks.default]
-    deps = ["fish", "mpv"]
+# Git
+[tasks.git]
+    links = [
+        ["${HM_DEST}/.gitconfig", "git/gitconfig"]
+    ]
 
-[tasks.full-kde]
-    deps = ["default"]
+[tasks.default]
+    deps = ["fish", "kak", "git", "mpv"]

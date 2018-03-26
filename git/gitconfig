@@ -1,0 +1,32 @@
+[core]
+    editor = code-insiders --wait
+    fscache = true
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    showbranch = auto
+    ui = auto
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+    graph = log --graph --date=short --oneline --pretty=tformat:'%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s' --decorate=short --branches='*'
+    prune = fetch --prune
+    undo = reset --soft HEAD^
+    stash-all = stash save --include-untracked
+[rerere]
+    enabled = true
+[diff]
+    tool = default-difftool
+    renames = true
+[difftool "default-difftool"]
+    cmd = code-insiders --wait --diff $LOCAL $REMOTE
+[user]
+    email = john.razor97@gmail.com
+    name = quartz55
+[github]
+    user = quartz55
+[credential]
+    helper = cache --timeout=3600
