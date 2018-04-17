@@ -5,6 +5,9 @@
 [macros.install__ubuntu]
     prefix = ["sudo", "apt", "install"]
 
+[macros.install__macos]
+    prefix = ["brew", "install"]
+
 # fish shell
 [tasks.install-fish]
     rejects = [["which", "fish"]]
@@ -42,10 +45,30 @@
     ]
 
 # Git
+[tasks.install-git]
+    rejects = [["which", "git"]]
+    cmds = [["@install", "git"]]
+
 [tasks.git]
+    deps = ["install-git"]
     links = [
         ["${HM_DEST}/.gitconfig", "git/gitconfig"]
     ]
 
+# TMUX
+[tasks.tmux_tpm]
+    rejects = [["test", "-d", "${HM_DEST}/.tmux/plugins/tpm"]]
+    deps = ["git"]
+    cmds = [["git", "clone", "https://github.com/tmux-plugins/tpm", "${HM_DEST}/.tmux/plugins/tpm"]]
+
+[tasks.tmux_conf]
+    cmds = [["mkdir", "-p", "${HM_DEST}/.tmux"]]
+    links = [
+        ["${HM_DEST}/.tmux.conf", "tmux/tmux.conf"]
+    ]
+
+[tasks.tmux]
+    deps = ["tmux_conf", "tmux_tpm"]
+
 [tasks.default]
-    deps = ["fish", "kak", "git", "mpv"]
+    deps = ["fish", "kak", "git", "mpv", "tmux"]

@@ -40,10 +40,12 @@ function __get_conda_root
     end
 end
 
-# If conda is in path source fish integration
-if which conda ^/dev/null 1>/dev/null
-    set -l conda_root (__get_conda_root)
-    if test -n $conda_root
+set -l conda_root (__get_conda_root)
+if test -n $conda_root
+    set -l conda_bin $conda_root/bin
+    not contains $conda_bin $PATH; and set -gx PATH $PATH $conda_bin
+    # If conda is in path source fish integration
+    if command which conda ^/dev/null 1>/dev/null
         set -l file $conda_root/etc/fish/conf.d/conda.fish
         test -e $file; and builtin source $file
     end
