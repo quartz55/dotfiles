@@ -8,6 +8,10 @@
 [macros.install__macos]
     prefix = ["brew", "install"]
 
+[macros.clone]
+    deps = ["git"]
+    prefix = ["git", "clone"]
+
 # fish shell
 [tasks.install-fish]
     rejects = [["which", "fish"]]
@@ -59,10 +63,16 @@
 [tasks.tmux_tpm]
     rejects = [["test", "-d", "${HM_DEST}/.tmux/plugins/tpm"]]
     deps = ["git"]
-    cmds = [["git", "clone", "https://github.com/tmux-plugins/tpm", "${HM_DEST}/.tmux/plugins/tpm"]]
+    cmds = [["@clone", "https://github.com/tmux-plugins/tpm", "${HM_DEST}/.tmux/plugins/tpm"]]
 
 [tasks.tmux_conf]
-    cmds = [["mkdir", "-p", "${HM_DEST}/.tmux"]]
+    cmds = [
+        ["mkdir", "-p", "${HM_DEST}/.tmux"],
+        ["find", "${HM_SRC}/tmux",
+         "-maxdepth", "1",
+         "-name",  "*.tmux",
+         "-exec", "ln", "-s", "{}", "${HM_DEST}/.tmux/", ";"] 
+    ]
     links = [
         ["${HM_DEST}/.tmux.conf", "tmux/tmux.conf"]
     ]
