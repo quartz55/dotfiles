@@ -3,4 +3,4 @@ plug occivink/kakoune-sudo-write
 # Auto-pairs
 plug alexherbo2/auto-pairs.kak
 hook global WinCreate .* %{ auto-pairs-enable }
-map global user s :auto-pairs-surround<ret>
+map -docstring 'Toggle surround mode' global user s :auto-pairs-surround<ret>

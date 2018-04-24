@@ -5,7 +5,7 @@ set -l fish_config_path (set -q XDG_CONFIG_DIR
                          and echo "$XDG_CONFIG_DIR/fish"
                          or echo "$HOME/.config/fish")
 function _insert_after
-    if ! test (count $argv) -ge 3
+    if not test (count $argv) -ge 3
         set_color red
         printf "Invalid number of arguments %d (expected %d)\n" (count $argv) 3
         set_color normal

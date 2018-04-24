@@ -31,7 +31,7 @@ function __mpvctl_print_help
 end
 
 function __mpvctl_check_connection
-    echo '{ "command": ["client_name"] }' | socat - $mpv_socket >/dev/null ^1
+    echo '{ "command": ["client_name"] }' | socat - $mpv_socket >/dev/null 2>&1
     return $status
 end
 
@@ -43,7 +43,7 @@ function __mpvctl_build_command
 end
 
 function mpvctl -d 'Command line program for controlling a running mpv instance'
-    if not which socat >/dev/null ^1
+    if not which socat >/dev/null 2>&1
         set_color red
         echo "This program needs 'socat' to be installed"
         set_color normal

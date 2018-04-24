@@ -56,7 +56,8 @@
 [tasks.git]
     deps = ["install-git"]
     links = [
-        ["${HM_DEST}/.gitconfig", "git/gitconfig"]
+        ["${HM_DEST}/.gitconfig", "git/gitconfig"],
+        ["${HM_DEST}/.tigrc", "git/tigrc"]
     ]
 
 # TMUX

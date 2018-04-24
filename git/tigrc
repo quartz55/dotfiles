@@ -1,0 +1,11 @@
+set line-graphics = utf-8
+set ignore-case = smart-case
+set mouse-scroll = 1
+set mouse = yes
+
+set main-view-date = relative
+set tree-view-date = relative
+set blame-view-date = relative
+
+bind main R !git rebase -i %(commit)^
+bind diff R !git rebase -i %(commit)^

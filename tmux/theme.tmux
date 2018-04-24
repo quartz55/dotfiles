@@ -9,7 +9,7 @@ set -g status-fg cyan
 set -g status-left-bg black
 set -g status-left-fg black
 set -g status-left-length 40
-set -g status-left "#[bg=green] #S #[bg=yellow] #I #[bg=cyan] #P "
+set -g status-left "#[bg=green] #S ● #[bg=yellow]#[fg=green]#[fg=default] #I #[bg=cyan]#[fg=yellow] #[fg=default]#P "
 
 # Right side of status bar
 set -g status-right-bg black
