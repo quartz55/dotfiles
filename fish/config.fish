@@ -1,17 +1,6 @@
-# Set environment variables
-if status is-login
-    if functions -q bass; and not set -q FISH_LOGIN
-        bass 'source /etc/profile'
-    else
-        echo (set_color yellow)"WARNING: Make sure 'bass' is available for '/etc/profile' compatibility!"(set_color normal)
-    end
-    set -l login_counter (set -q FISH_LOGIN[1]; and echo $FISH_LOGIN[1]; or echo 0)
-    set -gx FISH_LOGIN (math "1 + $login_counter") $FISH_LOGIN
-end
-
-set -gx EDITOR kak
-set -gx VISUAL kak
-###########################
+set -gx EDITOR "em -t"
+set -gx VISUAL "em"
+set -g theme_nerd_fonts yes
 
 # Merge keybindings
 if status is-interactive
@@ -30,7 +19,9 @@ end
 
 set -l scripts_folder (dirname (status -f))/scripts
 
-# Anaconda
+############
+# Anaconda #
+############
 function __get_conda_root
     set -l opt /opt/anaconda
     set -l home $HOME/.anaconda3
@@ -51,8 +42,3 @@ if test -n $conda_root
     end
 end
 
-# hub
-if which hub >/dev/null
-    eval (hub alias -s)
-    complete -c hub -w git
-end

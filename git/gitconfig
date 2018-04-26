@@ -1,5 +1,6 @@
 [core]
-    editor = code-insiders --wait
+    # editor = code-insiders --wait
+    editor = emacsclient -t
     fscache = true
 [color]
     branch = auto

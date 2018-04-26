@@ -81,5 +81,10 @@
 [tasks.tmux]
     deps = ["tmux_conf", "tmux_tpm"]
 
+[tasks.emacs]
+    links = [
+        ["${HM_DEST}/.spacemacs", "emacs/spacemacs"]
+    ]
+
 [tasks.default]
-    deps = ["fish", "kak", "git", "mpv", "tmux"]
+    deps = ["fish", "kak", "emacs", "git", "mpv", "tmux"]
