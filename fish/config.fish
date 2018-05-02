@@ -1,6 +1,7 @@
 set -gx EDITOR "em -t"
 set -gx VISUAL "em"
 set -g theme_nerd_fonts yes
+set -g theme_display_virtualenv yes
 
 # Merge keybindings
 if status is-interactive
@@ -38,7 +39,12 @@ if test -n $conda_root
     # If conda is in path source fish integration
     if command which conda >/dev/null 2>&1
         set -l file $conda_root/etc/fish/conf.d/conda.fish
-        test -e $file; and builtin source $file
+        if test -e $file; and builtin source $file
+            function __conda_add_prompt; end
+            function __update_conda_prompt -v CONDA_DEFAULT_ENV
+                set -gx VIRTUAL_ENV "$CONDA_DEFAULT_ENV"
+            end
+        end
     end
 end
 

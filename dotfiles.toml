@@ -17,8 +17,17 @@
     rejects = [["which", "fish"]]
     cmds = [["@install", "fish"]]
 
+[tasks.fish_scripts]
+    cmds = [
+        ["mkdir", "-p", "${HM_DEST}/.local/bin"],
+        ["find", "${HM_SRC}/fish/scripts",
+	 "-executable",
+	 "-type", "f",
+         "-exec", "ln", "-s", "{}", "${HM_DEST}/.local/bin/", ";"] 
+    ]
+
 [tasks.fish]
-    deps = ["install-fish"]
+    deps = ["install-fish", "fish_scripts"]
     envs = [
         ["FISH_PATH", "${HM_DEST}/.config/fish"],
         ["FISHER_PATH", "${HM_DEST}/.local/share/fisherman"]

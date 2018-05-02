@@ -1,7 +1,8 @@
 # Set environment variables
 if status is-login
     if functions -q bass; and not set -q FISH_LOGIN
-        bass 'source /etc/profile'
+        printf (set_color cyan)"Not this time mofo <:(\n"(set_color normal)
+        # bass 'source /etc/profile'
     else
         echo (set_color yellow)"WARNING: Make sure 'bass' is available for '/etc/profile' compatibility!"(set_color normal)
     end

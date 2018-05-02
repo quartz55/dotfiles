@@ -1,3 +1,5 @@
+#!/bin/env fish
+
 function __em_frame_count
     set -l sexpr "(length (frame-list))"
     emacsclient -n -e $sexpr 2>/dev/null; or echo 0
@@ -16,11 +18,14 @@ function em
         return $status
         breakpoint
     end
+    set -l files $argv
     set -l client_flags (begin not set -q _flag_wait; and not set -q _flag_terminal; end; and echo -- '-n')
     set client_flags $client_flags (set -q _flag_terminal; and echo -- '-t')
-    if set -q _flag_frame; or test ! (__em_frame_count) -ge 1
+    if set -q _flag_frame; or test ! (__em_frame_count) -ge 1; or test (count $files) -eq 0
         set client_flags $client_flags '-c'
     end
-    set -l cmd "emacsclient -a ''" $client_flags $argv
+    set -l cmd "emacsclient -a ''" $client_flags $files >/dev/null 2>&1
     eval $cmd
 end
+
+em $argv

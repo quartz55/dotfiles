@@ -1,6 +1,6 @@
 [core]
     # editor = code-insiders --wait
-    editor = emacsclient -t
+    editor = em -t
     fscache = true
 [color]
     branch = auto
@@ -9,21 +9,26 @@
     showbranch = auto
     ui = auto
 [alias]
+    d  = difftool
     st = status
+    ca = commit --amend
     ci = commit
     co = checkout
     lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
-    graph = log --graph --date=short --oneline --pretty=tformat:'%C(yellow)%h%Creset %C(magenta)%cd%Creset %d %s' --decorate=short --branches='*'
+    sync = fetch --all
     prune = fetch --prune
     undo = reset --soft HEAD^
     stash-all = stash save --include-untracked
 [rerere]
     enabled = true
 [diff]
-    tool = default-difftool
+    tool = p4merge
     renames = true
-[difftool "default-difftool"]
+[difftool "vscode"]
     cmd = code-insiders --wait --diff $LOCAL $REMOTE
+[difftool "vimdiff"]
+    cmd = vimdiff "$LOCAL" "$REMOTE"
+    prompt = false
 [user]
     email = john.razor97@gmail.com
     name = quartz55
