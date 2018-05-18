@@ -2,6 +2,7 @@ set -gx EDITOR "em -t"
 set -gx VISUAL "em"
 set -g theme_nerd_fonts yes
 set -g theme_display_virtualenv yes
+set -g theme_display_date no
 
 # Merge keybindings
 if status is-interactive

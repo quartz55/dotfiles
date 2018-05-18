@@ -1,0 +1,264 @@
+# i3 config file (v4)
+# vim: set ft=sh
+
+#===============#
+#==| General |==#
+#===============#
+
+set $mod Mod4
+set $alt Mod1
+
+#--[ Outputs ]--#
+set $out_left "DP2"
+set $out_right "DP1"
+
+#--[ Workspaces ]--#
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
+
+workspace $ws1 output $out_left
+workspace $ws2 output $out_left
+workspace $ws3 output $out_left
+workspace $ws4 output $out_left
+workspace $ws5 output $out_left
+workspace $ws6 output $out_right
+workspace $ws7 output $out_right
+workspace $ws8 output $out_right
+workspace $ws9 output $out_right
+workspace $ws10 output $out_right
+
+floating_modifier $mod
+focus_follows_mouse no
+focus_on_window_activation smart
+mouse_warping none
+workspace_auto_back_and_forth false
+
+
+#====================#
+#==| Key bindings |==#
+#====================#
+
+bindsym $mod+q nop
+bindsym $mod+Shift+q kill
+bindsym $alt+F4 kill
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+#--[ Layouts ]--#
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+plus sticky toggle
+
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+#--[ Outputs ]--#
+bindsym $mod+x move container to output right
+bindsym $mod+Shift+x move workspace to output right
+bindsym $mod+Shift+Tab focus output left
+
+bindsym $mod+Ctrl+h focus output $out_left
+bindsym $mod+Ctrl+l focus output $out_right
+bindsym $mod+Ctrl+Shift+h move container to output $out_left; focus output $out_left
+bindsym $mod+Ctrl+Shift+l move container to output $out_right; focus output $out_right
+
+#--[ Scratchpad ]--#
+bindsym $mod+t scratchpad show
+bindsym $mod+Shift+t move scratchpad
+
+#--[ Resizing ]--#
+mode "Resize" {
+    bindsym h           resize shrink width 10 px or 10 ppt
+    bindsym l           resize grow width 10 px or 10 ppt
+    bindsym k           resize grow height 10 px or 10 ppt
+    bindsym j           resize shrink height 10 px or 10 ppt
+
+    bindsym Left        resize shrink width 10 px or 10 ppt
+    bindsym Right       resize grow width 9 px or 10 ppt
+    bindsym Down        resize grow height 10 px or 10 ppt
+    bindsym Up          resize shrink height 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "Resize"
+
+#--[ Workspaces ]--#
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+bindsym $mod+comma workspace prev
+bindsym $mod+period workspace next
+
+#--[ Marks ]--#
+bindsym $mod+apostrophe exec --no-startup-id $HOME/.i3/scripts/rofi-marks.fish
+
+#--[ Misc ]--#
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+#bindsym $mod+F12 exec --no-startup-id betterlockscreen -l
+
+# set $mode_system System: lock [l] suspend [s] reboot [r] shut down [p]
+# mode "$mode_system" {
+#         bindsym l exec --no-startup-id betterlockscreen -l, mode "default"
+#         bindsym s exec --no-startup-id betterlockscreen -s, mode "default"
+#         bindsym r exec --no-startup-id systemctl reboot, mode "default"
+#         bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"
+
+#         bindsym Return mode "default"
+#         bindsym Escape mode "default"
+# }
+# bindsym $mod+Shift+e mode "$mode_system"
+
+#--[ Launchers ]--#
+set $term kitty -1
+bindsym $mod+Return exec --no-startup-id "$term tmux new -t main \; set-option destroy-unattached"
+bindsym $mod+Shift+Return exec --no-startup-id $term
+
+# Rofi
+bindsym $mod+d exec --no-startup-id rofi -modi drun#run -combi-modi drun#run -show combi -display-run "$ " -display-drun " " -run-command "i3 exec {cmd}"
+bindsym $mod+Shift+d exec --no-startup-id rofi -modi window -show window -display-window " "
+bindsym $alt+Tab exec --no-startup-id rofi -modi window -show window -display-window " "
+
+bindsym $mod+z exec dolphin
+bindsym $mod+Shift+z exec $term -e ranger
+
+# Volume controls (not needed with Plasma)
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10%
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10%
+
+bindsym Print exec flameshot gui
+
+
+#=================#
+#==| Autostart |==#
+#=================#
+
+#--[ KDE Plasma ]--#
+exec_always --no-startup-id $HOME/.i3/startup/compton.sh
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/macos_sierra_stock_mountains_4k-5120x2880.jpg
+
+# exec_always --no-startup-id $HOME/.i3/startup/compton.sh
+# exec_always --no-startup-id $HOME/.i3/startup/polybar.sh
+# exec --no-startup-id betterlockscreen -u ~/Pictures/Wallpapers/macos_sierra_stock_mountains_4k-5120x2880.jpg
+# exec --no-startup-id betterlockscreen -w
+# exec --no-startup-id "setxkbmap -layout pt"
+# exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
+# exec --no-startup-id nm-applet &
+# exec --no-startup-id dunst &
+
+# For authentification
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# Lock in case of user inactivity under X
+# exec --no-startup-id xautolock -time 10 -corners 0-00 -locker "betterlockscreen -l" &
+
+
+#=======================#
+#==| Workspace rules |==#
+#=======================#
+
+# assign [class="(?i)chrome"] 1
+# assign [class="(?i)code-insiders"] 2
+
+
+#====================#
+#==| Window rules |==#
+#====================#
+
+#--[ Plasma integration ]--#
+exec --no-startup-id wmctrl -c Plasma
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+for_window [class="plasmashell"] floating enable
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+no_focus [class="plasmashell"]
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+no_focus [window_role="pop-up"]
+no_focus [window_type="notification"]
+
+
+#==================#
+#==| Appearance |==#
+#==================#
+
+#font pango:Noto Sans 10
+#font pango:Lato 10
+font pango:SF Pro Display 10
+gaps inner 5
+gaps outer 5
+default_border pixel 2
+default_floating_border pixel 2
+smart_gaps on
+#smart_borders false
+
+client.focused          #00BCD4 #00BCD4 #222D32 #CFD8DC
+client.focused_inactive #006C83 #006C83 #CFD8DC #CFD8DC
+client.unfocused        #222D32 #222D32 #CFD8DC #CFD8DC
+client.urgent           #E64646 #E64646 #222D32 #CFD8DC

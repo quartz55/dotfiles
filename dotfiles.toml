@@ -95,5 +95,14 @@
         ["${HM_DEST}/.spacemacs", "emacs/spacemacs"]
     ]
 
+[tasks.i3]
+    links = [
+        ["${HM_DEST}/.i3/scripts", "i3/scripts"],
+        ["${HM_DEST}/.i3/startup", "i3/startup"],
+        ["${HM_DEST}/.i3/config", "i3/config"],
+        ["${HM_DEST}/.config/polybar", "i3/polybar"],
+        ["${HM_DEST}/.config/compton.conf", "i3/compton/compton.conf"]
+    ]
+
 [tasks.default]
     deps = ["fish", "kak", "emacs", "git", "mpv", "tmux"]

@@ -4,3 +4,8 @@ plug occivink/kakoune-sudo-write
 plug alexherbo2/auto-pairs.kak
 hook global WinCreate .* %{ auto-pairs-enable }
 map -docstring 'Toggle surround mode' global user s :auto-pairs-surround<ret>
+
+# LSP
+hook global WinSetOption filetype=python %{
+    lsp-enable
+}

@@ -1,6 +1,6 @@
 [core]
     # editor = code-insiders --wait
-    editor = em -t
+    editor = vim
     fscache = true
 [color]
     branch = auto
@@ -14,7 +14,7 @@
     ca = commit --amend
     ci = commit
     co = checkout
-    lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+    lg = log --graph --pretty=tformat:"'%C(bold #eeeeee #222222) %h %Creset%C(auto)%d %Creset%s %Cgreen(%C(bold)%cr%C(nobold))%Creset %C(dim blue)<%an>%Creset'"
     sync = fetch --all
     prune = fetch --prune
     undo = reset --soft HEAD^
